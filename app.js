@@ -36,23 +36,22 @@ function buscaCarro(id){
     })
 }
 
-app.get("/carros",(req,res) => {
+/*app.get("/carros",(req,res) => {
     res.status(200).json(carros);
-});
+});*/
 
-app.get("/carros/:id",(req,res) => {
-    const id = buscaCarro(req.params.id);
-    res.status(200).json(carros[id]);
-});
-
-app.put("/carros/:id",(req,res) => {
+app.route("/carros/:id")
+    .get((req,res) => {
+        const id = buscaCarro(req.params.id);
+        res.status(200).json(carros[id]);
+})
+.put((req,res) => {
     const id = buscaCarro(req.params.id);
     carros[id].marca = req.body.marca;
     carros[id].modelo = req.body.modelo;
     res.status(200).json(carros[id]);
-});
-
-app.delete("/carros/:id",(req,res) => {
+})
+.delete((req,res) => {
     const id = buscaCarro(req.params.id);    
     if(carros[id]){
         carros.splice(id,1);
